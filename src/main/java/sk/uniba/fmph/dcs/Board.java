@@ -11,7 +11,7 @@ public class Board {
     private Floor floor;
     private FinalPointsCalculation finalPointsCalculation;
     private GameFinished gameFinished;
-    private Points points;
+    protected Points points;
 
     public Board(
             ArrayList<PatternLine> patternLines,
