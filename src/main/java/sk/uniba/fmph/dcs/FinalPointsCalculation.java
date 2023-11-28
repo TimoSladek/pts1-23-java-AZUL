@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class FinalPointsCalculation {
+
+    public FinalPointsCalculation(){
+
+    }
     public Points getPoints(ArrayList<List<Optional<Tile>>> wall) {
         int completedRows = 0, completedColumns = 0, completedColors = 0;
         //number of completed rows

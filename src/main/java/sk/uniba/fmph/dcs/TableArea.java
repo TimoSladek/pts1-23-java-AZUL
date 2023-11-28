@@ -3,7 +3,7 @@ package sk.uniba.fmph.dcs;
 import java.util.ArrayList;
 
 public class TableArea {
-    private ArrayList<TileSource> tileSources;
+    private final ArrayList<TileSource> tileSources;
 
     public TableArea(ArrayList<TileSource> tileSources) {
         this.tileSources = tileSources;

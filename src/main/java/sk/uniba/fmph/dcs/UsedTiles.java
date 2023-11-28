@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class UsedTiles implements UsedTilesGiveInterface, UsedTilesTakeAllInterface {
-    private ArrayList<Tile> usedTiles;
+    private final ArrayList<Tile> usedTiles;
 
     public UsedTiles() {
         this.usedTiles = new ArrayList<>();

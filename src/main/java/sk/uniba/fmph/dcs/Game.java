@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Game implements GameInterface {
 
-    private GameObserver gameObserver;
-    private TableArea tableArea;
+    private final GameObserver gameObserver;
+    private final TableArea tableArea;
     private Bag bag;
-    private ArrayList<Board> boards;
+    private final ArrayList<Board> boards;
     private int currentPlayerId;
     private int startingPlayerId;
 

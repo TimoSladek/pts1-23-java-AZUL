@@ -3,14 +3,15 @@ package sk.uniba.fmph.dcs;
 import java.util.ArrayList;
 
 public class Factory implements TileSource {
-    private Bag bag;
-    private TableCenter tableCenter;
-    private ArrayList<Tile> factoryTiles;
+    private final BagInterface bag;
+    private final TableCenter tableCenter;
+    private final ArrayList<Tile> factoryTiles;
 
-    public Factory(Bag bag, TableCenter tableCenter) {
+    public Factory(BagInterface bag, TableCenter tableCenter) {
         this.bag = bag;
         this.tableCenter = tableCenter;
         this.factoryTiles = new ArrayList<>();
+        startNewRound();
     }
 
     @Override

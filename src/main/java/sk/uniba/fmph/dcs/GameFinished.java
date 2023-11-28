@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class GameFinished {
+    public GameFinished() {
+    }
+
     public FinishRoundResult gameFinished(ArrayList<List<Optional<Tile>>> wall) {
         for (List<Optional<Tile>> row : wall) {
             int rowTileCount = 0;

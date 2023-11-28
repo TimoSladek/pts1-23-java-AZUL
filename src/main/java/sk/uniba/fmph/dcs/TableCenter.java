@@ -6,20 +6,19 @@ public class TableCenter implements TileSource {
     private ArrayList<Tile> tiles;
 
     public TableCenter() {
-        this.tiles = new ArrayList<>();
-        tiles.add(Tile.STARTING_PLAYER);
+        startNewRound();
     }
 
     @Override
     public ArrayList<Tile> take(int idx) {
-        if (idx < 0 || idx >= tiles.size()) throw new IndexOutOfBoundsException();
+        if (tiles.get(0) == Tile.STARTING_PLAYER && idx == 0)throw new IndexOutOfBoundsException();
         ArrayList<Tile> takenTiles = new ArrayList<>();
         Tile chosenTile = tiles.get(idx);
         if (tiles.get(0) == Tile.STARTING_PLAYER) {
             takenTiles.add(tiles.remove(0));
         }
         for (Tile tile : tiles) {
-            if (tile == chosenTile) tiles.add(tile);
+            if (tile == chosenTile) takenTiles.add(tile);
         }
         tiles.removeIf(t -> t == chosenTile);
         return takenTiles;

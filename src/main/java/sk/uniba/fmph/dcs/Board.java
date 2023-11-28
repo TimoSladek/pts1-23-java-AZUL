@@ -1,35 +1,33 @@
 package sk.uniba.fmph.dcs;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Board {
-    private ArrayList<PatternLine> patternLines;
-    private ArrayList<WallLine> wallLines;
-    private Floor floor;
-    private FinalPointsCalculation finalPointsCalculation;
-    private GameFinished gameFinished;
+    private final ArrayList<PatternLine> patternLines;
+    private final ArrayList<WallLine> wallLines;
+    private final Floor floor;
+    private final FinalPointsCalculation finalPointsCalculation;
+    private final GameFinished gameFinished;
     protected Points points;
 
     public Board(
             ArrayList<PatternLine> patternLines,
             ArrayList<WallLine> wallLines,
-            Floor floor,
-            FinalPointsCalculation finalPointsCalculation,
-            GameFinished gameFinished
+            Floor floor
     ) {
         this.patternLines = patternLines;
         this.wallLines = wallLines;
         this.floor = floor;
-        this.finalPointsCalculation = finalPointsCalculation;
-        this.gameFinished = gameFinished;
         this.points = new Points(0);
+        this.finalPointsCalculation = new FinalPointsCalculation();
+        this.gameFinished = new GameFinished();
     }
 
     public void put(int destinationIdx, ArrayList<Tile> tiles) {
-        if (destinationIdx == -1) floor.put(tiles);
+        if (destinationIdx == -1) {
+            floor.put(tiles);
+            return;
+        }
         if (tiles.get(0) == Tile.STARTING_PLAYER) {
             floor.put(Collections.singleton(tiles.remove(0)));
         }
@@ -41,13 +39,14 @@ public class Board {
         for (WallLine wallLine : wallLines) {
             wall.add(wallLine.getTiles());
         }
-        FinishRoundResult result = gameFinished.gameFinished(wall);
-        int roundPoints = points.getValue();
+        int currentPoints = points.getValue();
         for (PatternLine line : patternLines) {
-            roundPoints += line.finishRound().getValue();
+            currentPoints += line.finishRound().getValue();
         }
-        roundPoints += floor.finishRound().getValue();
-        points = new Points(roundPoints);
+        currentPoints += floor.finishRound().getValue();
+        if (currentPoints < 0)points = new Points(0);
+        else points = new Points(currentPoints);
+        FinishRoundResult result = gameFinished.gameFinished(wall);
         if (result == FinishRoundResult.GAME_FINISHED) {
             endGame();
         }

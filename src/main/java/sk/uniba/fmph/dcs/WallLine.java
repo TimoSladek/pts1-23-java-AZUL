@@ -3,10 +3,10 @@ package sk.uniba.fmph.dcs;
 import java.util.*;
 
 public class WallLine {
-    private ArrayList<Tile> tileTypes;
+    private final ArrayList<Tile> tileTypes;
     private WallLine lineUp;
     private WallLine lineDown;
-    private List<Optional<Tile>> wallLineTiles;
+    private final List<Optional<Tile>> wallLineTiles;
 
     public WallLine(List<Tile> tileTypes) {
         this.tileTypes = new ArrayList<>(tileTypes);
@@ -52,7 +52,7 @@ public class WallLine {
     }
 
     private Points calculatePoints(int index) {
-        int points = 0, helper = 1;
+        int points = 1, helper = 1;
         while (index - helper >= 0) {
             if (wallLineTiles.get(index - helper).isPresent()) {
                 points++;
@@ -71,7 +71,6 @@ public class WallLine {
             }
         }
 
-        if (points > 0) points++;
         int currentPoints = points;
 
         WallLine thisWallLine = this;

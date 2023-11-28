@@ -2,9 +2,9 @@ package sk.uniba.fmph.dcs;
 
 import java.util.*;
 
-public class Bag {
-    private UsedTilesTakeAllInterface usedTiles;
-    private ArrayList<Tile> bagTiles;
+public class Bag implements BagInterface{
+    private final UsedTilesTakeAllInterface usedTiles;
+    private final ArrayList<Tile> bagTiles;
 
     public Bag(UsedTilesTakeAllInterface usedTiles) {
         this.usedTiles = usedTiles;
@@ -15,7 +15,7 @@ public class Bag {
             }
         }
     }
-
+    @Override
     public ArrayList<Tile> take(int count) {
         bagTiles.addAll(usedTiles.takeAll());
         ArrayList<Tile> tilesToTake = new ArrayList<>();
@@ -24,7 +24,7 @@ public class Bag {
         }
         return tilesToTake;
     }
-
+    @Override
     public String state() {
         StringBuilder builder = new StringBuilder();
         for (Tile tile : bagTiles) {
@@ -33,7 +33,7 @@ public class Bag {
         return builder.toString();
     }
 
-    public Tile takeRandomTile() {
+    private Tile takeRandomTile() {
         Random rand = new Random();
         Tile tile = bagTiles.get(rand.nextInt(bagTiles.size()));
         bagTiles.remove(tile);

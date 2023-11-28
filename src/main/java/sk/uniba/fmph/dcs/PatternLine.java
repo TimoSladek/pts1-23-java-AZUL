@@ -3,11 +3,11 @@ package sk.uniba.fmph.dcs;
 import java.util.ArrayList;
 
 public class PatternLine {
-    private ArrayList<Tile> patternLineTiles;
-    private Floor floor;
-    private UsedTilesGiveInterface usedTiles;
-    private WallLine wallLine;
-    private int capacity;
+    private final ArrayList<Tile> patternLineTiles;
+    private final Floor floor;
+    private final UsedTilesGiveInterface usedTiles;
+    private final WallLine wallLine;
+    private final int capacity;
 
     public PatternLine(Floor floor, UsedTilesGiveInterface usedTiles, WallLine wallLine, int capacity) {
         this.floor = floor;
@@ -23,8 +23,8 @@ public class PatternLine {
             return;
         }
         if (tiles.size() > capacity - patternLineTiles.size()) {
-            int numberOfaddedTiles = capacity - patternLineTiles.size();
-            for (int i = 0; i < numberOfaddedTiles; i++) {
+            int numberOfAddedTiles = capacity - patternLineTiles.size();
+            for (int i = 0; i < numberOfAddedTiles; i++) {
                 patternLineTiles.add(tiles.remove(0));
             }
             floor.put(tiles);

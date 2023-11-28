@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameObserver {
-    private List<ObserverInterface> observers;
+    private final List<ObserverInterface> observers;
 
     public GameObserver() {
         this.observers = new ArrayList<>();
