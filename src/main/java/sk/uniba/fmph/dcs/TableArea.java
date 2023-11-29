@@ -1,6 +1,7 @@
 package sk.uniba.fmph.dcs;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TableArea {
     private final ArrayList<TileSource> tileSources;
@@ -17,10 +18,13 @@ public class TableArea {
     }
 
     public boolean isRoundEnd() {
+        int count = 0;
         for (TileSource source : tileSources) {
-            if (!source.isEmpty()) {
-                return false;
+            if (!source.isEmpty()){
+                count++;
+                if (!Objects.equals(source.state(), "S"))return false;
             }
+            if (count == 2)return  false;
         }
         return true;
     }
