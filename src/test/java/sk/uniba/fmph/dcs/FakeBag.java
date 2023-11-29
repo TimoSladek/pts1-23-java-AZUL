@@ -28,10 +28,9 @@ public class FakeBag implements BagInterface {
         return builder.toString();
     }
 
-    public void refill(Tile tile, Tile differentTile) {
-        for (int i = 0; i < 19; i++) {
+    public void refill(Tile tile) {
+        for (int i = 0; i < 20; i++) {
             tiles.add(tile);
         }
-        tiles.add(differentTile);
     }
 }

@@ -5,13 +5,14 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GameIntegrationTest {
     private Game game;
     private ArrayList<Board> boards;
-    private TableArea tableArea;
     private FakeBag fakeBag;
     private TableCenter tableCenter;
 
@@ -20,7 +21,7 @@ public class GameIntegrationTest {
         boards = new ArrayList<>();
         ArrayList<Points> pointPattern = new ArrayList<>(List.of(new Points(-1), new Points(-1), new Points(-2), new Points(-2), new Points(-2), new Points(-3), new Points(-3)));
         UsedTiles usedTiles = new UsedTiles();
-        fakeBag = new FakeBag(new ArrayList<>(List.of(Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLUE)));
+        fakeBag = new FakeBag(new ArrayList<>(List.of(Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK, Tile.BLACK)));
         ArrayList<Tile> tileTypes1 = new ArrayList<>(List.of(Tile.BLUE, Tile.YELLOW, Tile.RED, Tile.BLACK, Tile.GREEN));
         ArrayList<Tile> tileTypes2 = new ArrayList<>(List.of(Tile.GREEN, Tile.BLUE, Tile.YELLOW, Tile.RED, Tile.BLACK));
         ArrayList<Tile> tileTypes3 = new ArrayList<>(List.of(Tile.BLACK, Tile.GREEN, Tile.BLUE, Tile.YELLOW, Tile.RED));
@@ -54,33 +55,37 @@ public class GameIntegrationTest {
         for (int i = 0; i < 5; i++) {
             tileSources.add(new Factory(fakeBag, tableCenter));
         }
-        tableArea = new TableArea(tileSources);
+        TableArea tableArea = new TableArea(tileSources);
         GameObserver gameObserver = new GameObserver();
         game = new Game(gameObserver, tableArea, boards);
     }
 
     @Test
     public void integrationTestGame() {
-        ArrayList<Tile> tiles = new ArrayList<>(List.of(Tile.YELLOW, Tile.GREEN, Tile.RED, Tile.BLUE, Tile.BLACK, Tile.YELLOW));
-        for (int i = 0; i < 5; i++) {
-            fakeBag.refill(tiles.get(i), tiles.get(i+1));
+        ArrayList<Tile> tiles = new ArrayList<>(List.of(Tile.YELLOW, Tile.GREEN, Tile.RED, Tile.BLUE, Tile.BLACK));
+        int i = 0;
+        while(!game.isGameFinished()) {
+            fakeBag.refill(tiles.get(i));
+            i++;
             for (int j = 0; j < 5; j++) {
                 game.take(game.getCurrentPlayerId(), j + 1, 0, j);
             }
             boolean spTile = true;
-            do {
+            while (!Objects.equals(tableCenter.state(), "S")){
                 if (spTile) {
                     game.take(game.getCurrentPlayerId(), 0, 1, 0);
                     spTile = false;
                 } else {
                     game.take(game.getCurrentPlayerId(), 0, 0, 0);
                 }
-            } while (tableArea.state().length() != 21);
+            }
         }
-        assertEquals("In the end player 1 will have 0 points.",
-                0, boards.get(0).points.getValue());
-        assertEquals("And player 2 will have 9 points.",
-                9, boards.get(1).points.getValue());
+        assertTrue("Game should be finished.", game.isGameFinished());
+
+        assertEquals("In the end player 1 will have 8 points.",
+                8, boards.get(0).points.getValue());
+        assertEquals("And player 2 will have 5 points.",
+                5, boards.get(1).points.getValue());
 
     }
 }

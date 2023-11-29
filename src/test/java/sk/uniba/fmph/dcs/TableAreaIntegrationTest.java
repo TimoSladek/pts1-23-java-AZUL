@@ -23,7 +23,7 @@ public class TableAreaIntegrationTest {
         tileSources.add(tableCenter);
         tileSources.add(factory);
         tableArea = new TableArea(tileSources);
-        fakeBag.refill(Tile.BLUE, Tile.BLACK);
+        fakeBag.refill(Tile.BLUE);
     }
 
     @Test
