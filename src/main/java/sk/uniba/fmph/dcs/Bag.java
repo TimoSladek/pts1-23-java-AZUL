@@ -2,7 +2,7 @@ package sk.uniba.fmph.dcs;
 
 import java.util.*;
 
-public class Bag implements BagInterface{
+public class Bag implements BagInterface {
     private final UsedTilesTakeAllInterface usedTiles;
     private final ArrayList<Tile> bagTiles;
 
@@ -15,6 +15,7 @@ public class Bag implements BagInterface{
             }
         }
     }
+
     @Override
     public ArrayList<Tile> take(int count) {
         bagTiles.addAll(usedTiles.takeAll());
@@ -24,6 +25,7 @@ public class Bag implements BagInterface{
         }
         return tilesToTake;
     }
+
     @Override
     public String state() {
         StringBuilder builder = new StringBuilder();

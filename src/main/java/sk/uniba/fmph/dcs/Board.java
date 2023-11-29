@@ -44,7 +44,7 @@ public class Board {
             currentPoints += line.finishRound().getValue();
         }
         currentPoints += floor.finishRound().getValue();
-        if (currentPoints < 0)points = new Points(0);
+        if (currentPoints < 0) points = new Points(0);
         else points = new Points(currentPoints);
         FinishRoundResult result = gameFinished.gameFinished(wall);
         if (result == FinishRoundResult.GAME_FINISHED) {
