@@ -53,6 +53,10 @@ public class Game implements GameInterface {
         return true;
     }
 
+    public boolean isGameFinished() {
+        return gameFinished;
+    }
+
     public int getCurrentPlayerId() {
         return currentPlayerId;
     }

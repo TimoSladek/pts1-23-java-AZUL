@@ -11,7 +11,7 @@ public class TableCenter implements TileSource {
 
     @Override
     public ArrayList<Tile> take(int idx) {
-        if (tiles.get(0) == Tile.STARTING_PLAYER && idx == 0) throw new IndexOutOfBoundsException();
+        if (idx == 0 && tiles.get(0) == Tile.STARTING_PLAYER) throw new IndexOutOfBoundsException();
         ArrayList<Tile> takenTiles = new ArrayList<>();
         Tile chosenTile = tiles.get(idx);
         if (tiles.get(0) == Tile.STARTING_PLAYER) {

@@ -27,7 +27,7 @@ public class FactoryTest {
         assertEquals("take call on index 1 will take all yellow tiles and rest of them sends to tableCenter",
                 new ArrayList<>(List.of(Tile.YELLOW, Tile.YELLOW)), factory.take(1));
         assertTrue("After take call a factory should be empty.", factory.isEmpty());
-        fakeBag.refill();
+        fakeBag.refill(Tile.BLUE, Tile.RED);
         factory.startNewRound();
         assertEquals("Factory should contain 4 random tiles from bag when round starts.",
                 4, factory.state().length());
